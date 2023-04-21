@@ -2,6 +2,7 @@ package com.driuft.sharedlifecycle
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -22,11 +23,9 @@ class MainActivity : AppCompatActivity() {
             putString(getString(R.string.current_lifecycle_state), "onCreate")
             apply()
         }
-
     }
 
-    private val listener =
-        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+    private val listener = OnSharedPreferenceChangeListener { sharedPreferences, key ->
             Toast.makeText(
                 this,
                 sharedPreferences.getString(
@@ -43,7 +42,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        _sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
         with (_sharedPreferences.edit()) {
             putString(getString(R.string.current_lifecycle_state), "onStart")
             apply()
@@ -52,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        _sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
         with (_sharedPreferences.edit()) {
             putString(getString(R.string.current_lifecycle_state), "onResume")
             apply()
@@ -61,7 +58,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        _sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
         with (_sharedPreferences.edit()) {
             putString(getString(R.string.current_lifecycle_state), "onPause")
             apply()
@@ -70,7 +66,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        _sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
         with (_sharedPreferences.edit()) {
             putString(getString(R.string.current_lifecycle_state), "onStop")
             apply()
@@ -79,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        _sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
         with (_sharedPreferences.edit()) {
             putString(getString(R.string.current_lifecycle_state), "onRestart")
             apply()
